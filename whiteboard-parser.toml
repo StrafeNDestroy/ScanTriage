@@ -1,0 +1,17 @@
+[[host]]
+status: enum # alive,dead
+os_version: str # operating system 
+
+
+[[service_vuln]]
+host: str # host owner
+port_number: int # 54
+version: str # http ssl 
+status: enum # open, closed, filtered
+serivce_name: list[str] | None = None 
+vuln_evidence: list[str] | None =none # version found 
+misconfig_name: list[str] | None = none # name of misconfig
+misonfig_evidence: list[str] | None = none # output to determine the misconfiguration
+remidiation: list[str] # how to fix issues 
+
+

@@ -1,0 +1,19 @@
+[project]
+name = "scantriage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.13.4",
+    "pyyaml>=6.0.3",
+]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.9.4",
+    "mypy>=2.1.0",
+    "pytest>=9.0.3",
+    "ruff>=0.15.16",
+    "safety>=3.8.1",
+]

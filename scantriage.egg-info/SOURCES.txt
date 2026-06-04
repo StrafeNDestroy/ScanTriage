@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+scantriage/__init__.py
+scantriage/main.py
+scantriage/schema.py
+scantriage.egg-info/PKG-INFO
+scantriage.egg-info/SOURCES.txt
+scantriage.egg-info/dependency_links.txt
+scantriage.egg-info/requires.txt
+scantriage.egg-info/top_level.txt
+tests/test.py

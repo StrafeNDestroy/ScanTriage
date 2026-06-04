@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94SVN scan initiated Thu Jun  4 07:04:10 2026 as: nmap -sV -Pn -O -T4 -&#45;min-rate 1000 -&#45;stats-every 0 -p 21,22,80,111,139,445,3306,8081 -oX /home/jacob/Engagements/PG_QuaterJack/N_192.168.220.0-24/NetworkScan/xml/H_192.168.220.57.xml -oN /home/jacob/Engagements/PG_QuaterJack/N_192.168.220.0-24/NetworkScan/xml/H_192.168.220.57.nmap 192.168.220.57 -->
+<nmaprun scanner="nmap" args="nmap -sV -Pn -O -T4 -&#45;min-rate 1000 -&#45;stats-every 0 -p 21,22,80,111,139,445,3306,8081 -oX /home/jacob/Engagements/PG_QuaterJack/N_192.168.220.0-24/NetworkScan/xml/H_192.168.220.57.xml -oN /home/jacob/Engagements/PG_QuaterJack/N_192.168.220.0-24/NetworkScan/xml/H_192.168.220.57.nmap 192.168.220.57" start="1780574650" startstr="Thu Jun  4 07:04:10 2026" version="7.94SVN" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="8" services="21-22,80,111,139,445,3306,8081"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1780574650" endtime="1780574666"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="192.168.220.57" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="ftp" product="vsftpd" version="3.0.2" ostype="Unix" method="probed" conf="10"><cpe>cpe:/a:vsftpd:vsftpd:3.0.2</cpe></service></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="ssh" product="OpenSSH" version="7.4" extrainfo="protocol 2.0" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:7.4</cpe></service></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="http" product="Apache httpd" version="2.4.6" extrainfo="(CentOS) OpenSSL/1.0.2k-fips PHP/5.4.16" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.6</cpe></service></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="rpcbind" version="2-4" extrainfo="RPC #100000" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="netbios-ssn" product="Samba smbd" version="3.X - 4.X" extrainfo="workgroup: SAMBA" hostname="QUACKERJACK" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="netbios-ssn" product="Samba smbd" version="3.X - 4.X" extrainfo="workgroup: SAMBA" hostname="QUACKERJACK" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
+<port protocol="tcp" portid="3306"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="mysql" product="MariaDB" extrainfo="unauthorized" method="probed" conf="10"><cpe>cpe:/a:mariadb:mariadb</cpe></service></port>
+<port protocol="tcp" portid="8081"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="http" product="Apache httpd" version="2.4.6" extrainfo="(CentOS) OpenSSL/1.0.2k-fips PHP/5.4.16" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.6</cpe></service></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="21"/>
+<osmatch name="Linux 3.13" accuracy="90" line="63880">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="3.X" accuracy="90"><cpe>cpe:/o:linux:linux_kernel:3.13</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 3.10 - 4.11" accuracy="90" line="63448">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="3.X" accuracy="90"><cpe>cpe:/o:linux:linux_kernel:3</cpe></osclass>
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="4.X" accuracy="90"><cpe>cpe:/o:linux:linux_kernel:4</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 3.2 - 4.9" accuracy="90" line="65323">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="3.X" accuracy="90"><cpe>cpe:/o:linux:linux_kernel:3</cpe></osclass>
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="4.X" accuracy="90"><cpe>cpe:/o:linux:linux_kernel:4</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 3.18" accuracy="88" line="64474">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="3.X" accuracy="88"><cpe>cpe:/o:linux:linux_kernel:3.18</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 5.1" accuracy="88" line="68139">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="5.X" accuracy="88"><cpe>cpe:/o:linux:linux_kernel:5.1</cpe></osclass>
+</osmatch>
+<osmatch name="Crestron XPanel control system" accuracy="86" line="19551">
+<osclass type="specialized" vendor="Crestron" osfamily="2-Series" accuracy="86"><cpe>cpe:/o:crestron:2_series</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 3.16" accuracy="86" line="64180">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="3.X" accuracy="86"><cpe>cpe:/o:linux:linux_kernel:3.16</cpe></osclass>
+</osmatch>
+<osmatch name="HP P2000 G3 NAS device" accuracy="85" line="35046">
+<osclass type="storage-misc" vendor="HP" osfamily="embedded" accuracy="85"><cpe>cpe:/h:hp:p2000_g3</cpe></osclass>
+</osmatch>
+<osmatch name="Oracle VM Server 3.4.2 (Linux 4.1)" accuracy="85" line="92450">
+<osclass type="specialized" vendor="Oracle" osfamily="VM Server" osgen="3.X" accuracy="85"><cpe>cpe:/o:oracle:vm_server:3.4.2</cpe></osclass>
+<osclass type="specialized" vendor="Linux" osfamily="Linux" osgen="4.X" accuracy="85"><cpe>cpe:/o:linux:linux_kernel:4.1</cpe></osclass>
+</osmatch>
+<osmatch name="Linux 4.4" accuracy="85" line="67796">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="4.X" accuracy="85"><cpe>cpe:/o:linux:linux_kernel:4.4</cpe></osclass>
+</osmatch>
+</os>
+<uptime seconds="5" lastboot="Thu Jun  4 07:04:21 2026"/>
+<tcpsequence index="260" difficulty="Good luck!" values="60130715,B47D7247,94FBECE9,198C6D5B,93A9A484,F4FB4D9B"/>
+<ipidsequence class="All zeros" values="0,0,0,0,0,0"/>
+<tcptssequence class="1000HZ" values="CF3,D57,DB8,E1D,E80,EE5"/>
+<times srtt="48240" rttvar="1062" to="100000"/>
+</host>
+<runstats><finished time="1780574666" timestr="Thu Jun  4 07:04:26 2026" summary="Nmap done at Thu Jun  4 07:04:26 2026; 1 IP address (1 host up) scanned in 15.77 seconds" elapsed="15.77" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
