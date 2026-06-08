@@ -1,6 +1,7 @@
 from typing import Annotated, Literal
 from pydantic import BaseModel, Field
-from enum import StrEnum
+
+from scantriage.enums import HostStatus, PortStatus 
 
 
 class Authentication(BaseModel):
@@ -21,6 +22,7 @@ class Authentication(BaseModel):
     username: str
     password: str
     authenticated: bool
+    command: str
 
 
 class Misconfiguration(BaseModel):
@@ -40,7 +42,6 @@ class Misconfiguration(BaseModel):
     kind: Literal["misconfiguration"] = "misconfiguration"
     name: str
     command: str
-    evidence: str
 
 
 class Vulnerability(BaseModel):
@@ -65,43 +66,10 @@ class Vulnerability(BaseModel):
     kind: Literal["vulnerability"] = "vulnerability"
     name: str
     product: str | None = None
-    evidence: str | None = None
     version: str | None = None
     common_platform_enumeration: str | None = None
 
 
-class PortStatus(StrEnum):
-    """The state of a scanned port as reported by nmap.
-
-    Attributes:
-        OPEN: The port is open and accepting connections.
-        CLOSED: The port is reachable but no service is listening.
-        FILTERED: The state could not be determined (e.g. firewalled).
-        UNFILTERED: Reachable, but open versus closed could not be determined.
-        OPEN_FILTERED: Could not determine whether the port is open or filtered.
-        CLOSED_FILTERED: Could not determine whether the port is closed or filtered.
-    """
-
-    OPEN = "open"
-    CLOSED = "closed"
-    FILTERED = "filtered"
-    UNFILTERED = "unfiltered"
-    OPEN_FILTERED = "open|filtered"
-    CLOSED_FILTERED = "closed|filtered"
-
-
-class HostStatus(StrEnum):
-    """The reachability state of a scanned host as reported by nmap.
-
-    Attributes:
-        UP: The host responded and is up.
-        DOWN: The host did not respond and is considered down.
-        UNKNOWN: The host's state could not be determined.
-    """
-
-    UP = "up"
-    DOWN = "down"
-    UNKNOWN = "unknown"
 
 
 class Finding(BaseModel):
@@ -132,6 +100,7 @@ class Finding(BaseModel):
     port_number: int = Field(ge=1, le=65535)
     service_name: str
     operating_system: str | None
+    evidence: str | None
     finding_type: Annotated[
         Authentication | Misconfiguration | Vulnerability,
         Field(discriminator="kind"),
