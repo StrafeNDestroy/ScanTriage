@@ -48,12 +48,12 @@ Two input sources feed one common finding type:
 In active development. The project is built in phases, each ending in something
 measurable. The status of each phase is noted honestly so the roadmap reflects the
 actual state of the code.
-**Phase 1, parsing (in progress).** A deterministic parser turns nmap XML and service
+**Phase 1, parsing.** A deterministic parser turns nmap XML and service
 scan YAML into typed findings. The finding schema is complete and validated with a
 passing smoke test (typed, discriminated union, Pydantic value constraints). The source
 parsers are being written against it now.
 
-**Phase 2, triage(next).** Feed one finding to a local model and get back a CVSS
+**Phase 2, triage(in progress).** Feed one finding to a local model and get back a CVSS
 severity band with rationale as schema valid structured output, using constrained
 decoding so the result always conforms to the schema. 
 
