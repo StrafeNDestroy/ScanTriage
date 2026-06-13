@@ -15,9 +15,10 @@ logging.basicConfig(
         format="%(message)s",
         handlers=[RichHandler()],
 )
+PROJECT_ROOT = Path(__file__).parent.parent
 
-FILE_XML = "../tests/test-data/H_192.168.220.57.xml"
-FILE_YAML = "../tests/test-data/scan_results.yaml"
+FILE_XML = f"{PROJECT_ROOT}/tests/test-data/H_192.168.220.57.xml"
+FILE_YAML = f"{PROJECT_ROOT}/tests/test-data/scan_results.yaml"
 
 tree = ET.parse(str(FILE_XML))
 root = tree.getroot()
