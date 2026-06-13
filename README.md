@@ -48,6 +48,7 @@ Two input sources feed one common finding type:
 In active development. The project is built in phases, each ending in something
 measurable. The status of each phase is noted honestly so the roadmap reflects the
 actual state of the code.
+
 **Phase 1, parsing.** A deterministic parser turns nmap XML and service
 scan YAML into typed findings. The finding schema is complete and validated with a
 passing smoke test (typed, discriminated union, Pydantic value constraints). The source
