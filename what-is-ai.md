@@ -109,7 +109,15 @@ base and add it to the prompt, that retrieved text is spending your context wind
 The finding, your instructions, and the retrieved context all share the same finite
 space, so you cannot just stuff in everything. Choosing what to retrieve is partly a
 question of what will fit.
+### Types of Context Window management 
+Sliding window (FIFO): drop the oldest messages first. Simple to implement and widely used, but
+it permanently discards information that may still be relevant.
 
+Summarization / compaction: compress older turns into a condensed summary so their gist survives
+in fewer tokens, rather than discarding them outright. Preserves more context.
+
+Pinned content: retain designated anchors such as the system prompt and initial inputs regardless
+of age, managing the conversation's middle instead of evicting strictly by order.
 ## Example of VRAM layout
 
 10 GB VRAM. One cell = 1 GB. W = weights (fixed), K = KV cache, . = free.
