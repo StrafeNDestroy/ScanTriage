@@ -95,8 +95,8 @@ class Finding(BaseModel):
     """
 
     host_ip: str
-    host_status: HostStatus
-    port_status: PortStatus
+    host_status: str
+    port_status: str
     port_number: int = Field(ge=1, le=65535)
     service_name: str
     operating_system: str | None
