@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
-from scantriage.enums import HostStatus, PortStatus 
+from scantriage.enums import HostStatus, PortStatus, Severity 
 
 
 class Authentication(BaseModel):
@@ -95,8 +95,8 @@ class Finding(BaseModel):
     """
 
     host_ip: str
-    host_status: str
-    port_status: str
+    host_status: HostStatus 
+    port_status: PortStatus 
     port_number: int = Field(ge=1, le=65535)
     service_name: str
     operating_system: str | None
@@ -105,3 +105,11 @@ class Finding(BaseModel):
         Authentication | Misconfiguration | Vulnerability,
         Field(discriminator="kind"),
     ]
+
+
+class TriageResult(BaseModel):
+    """The model's triage assessment of a single finding."""
+    severity: Severity          
+    rationale: str        
+    remediation: str
+    
