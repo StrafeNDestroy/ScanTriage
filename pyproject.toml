@@ -13,8 +13,16 @@ dependencies = [
 [dependency-groups]
 dev = [
     "bandit>=1.9.4",
-    "mypy>=2.1.0",
+    "pyrefly>=1.1.1",
     "pytest>=9.0.3",
     "ruff>=0.15.16",
     "safety>=3.8.1",
 ]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["scantriage"]

@@ -1,0 +1,101 @@
+Metadata-Version: 2.4
+Name: scantriage
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: ollama>=0.6.2
+Requires-Dist: pydantic>=2.13.4
+Requires-Dist: pyyaml>=6.0.3
+
+# scan-triage
+
+An AI triage layer for penetration test enumeration output. It parses raw scan
+artifacts (nmap XML and structured service scan results) into typed findings, and is
+designed to assign each finding a CVSS severity band using a local language model
+grounded in a service knowledge base. The system runs fully on local hardware, so
+scan data never leaves the machine.
+
+> Documentation page pending
+
+## Why this exists
+
+Enumeration produces a flood of output: open ports, service versions, misconfigurations,
+authentication results. Sorting that into "what actually matters and how badly" is slow
+manual work. scan-triage turns the raw output into structured findings a model can score
+consistently, with the scoring measured against a hand labeled ground truth rather than
+assumed correct.
+
+The project is also a focused study in applied LLM engineering: retrieval, structured
+output, evaluation, and prompt injection defense.
+
+## Design
+
+The core decision is a clean separation of concerns. A deterministic parser captures and
+routes raw scan data into typed findings; it never interprets ambiguous output or assigns
+severity. The language model does the judging in a later stage. This keeps the brittle,
+tool version dependent text interpretation out of the deterministic layer and isolates
+where errors can come from.
+
+Findings are modeled at the grain of one discrete issue rather than one host or one port,
+so each finding carries a single type and can be scored independently. Host and port are
+fields on a finding, so per host or per port views are obtained by grouping. The schema
+uses a tagged union: a shared set of fields common to every finding, plus a type specific
+detail (vulnerability, misconfiguration, or authentication) selected by a discriminator,
+so the type and its detail cannot drift out of sync. The whole schema is validated with
+Pydantic, including value constraints such as a valid port range.
+
+Two input sources feed one common finding type:
+
+- nmap XML is parsed with the standard library XML parser into one vulnerability finding
+  per open service, carrying product, version, and CPE identifier for later CVE lookup.
+- Structured service scan results (YAML) yield authentication findings directly from a
+  confirmed flag, and capture other checks as raw evidence routed by category for the
+  model to interpret.
+
+## Status and phases
+
+In active development. The project is built in phases, each ending in something
+measurable. The status of each phase is noted honestly so the roadmap reflects the
+actual state of the code.
+
+**Phase 1, parsing.** A deterministic parser turns nmap XML and service
+scan YAML into typed findings. The finding schema is complete and validated with a
+passing smoke test (typed, discriminated union, Pydantic value constraints). The source
+parsers are being written against it now.
+
+**Phase 2, triage(in progress).** Feed one finding to a local model and get back a CVSS
+severity band with rationale as schema valid structured output, using constrained
+decoding so the result always conforms to the schema. 
+
+**Phase 3, evaluation and baseline (planned).** Build a hand labeled ground truth set,
+score the triage against it, and record a baseline accuracy number segmented by finding
+type. This baseline is what every later improvement is measured against.
+
+**Phase 4 R.A.G (planned).** Index a service and CVE knowledge base, retrieve
+relevant context per finding, and rerun the same evaluation to measure the accuracy lift
+that retrieval provides. The before and after numbers are the headline result.
+
+**Phase 5, adversarial defense (planned).** Scan output contains attacker controllable
+text, so this phase builds a prompt injection test set, measures the hijack rate,
+isolates untrusted text from instructions, and measures the hijack rate again.
+
+**Phase 6, agent (stretch).** A single hand rolled tool use loop that can trigger a
+targeted re-scan before triaging a finding.
+### Goals: 
+Introduce multi-processing parsing and threaded I/O.
+Refactor Phase 1
+
+## Concepts demonstrated
+
+Data modeling and schema design, separation of concerns, structured parsing of XML and
+YAML, Pydantic validation, and a deliberate architecture that draws the line between
+deterministic capture and model interpretation. The planned stages cover retrieval
+augmented generation, structured model output, evaluation against ground truth, local
+model deployment, and prompt injection defense.
+
+## Tech
+
+Python, Pydantic, local open weight models via Ollama. No cloud services and no model
+fine tuning; everything runs on local hardware.
+

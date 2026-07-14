@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
-from scantriage.enums import HostStatus, PortStatus, Severity 
+from scantriage.domain.enums import HostStatus, PortStatus, Severity 
 
 
 class Authentication(BaseModel):

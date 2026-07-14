@@ -1,7 +1,7 @@
 from pathlib import Path 
-from scantriage.parsing import parse_yaml, parse_xml
-from scantriage.model import query_model
-from scantriage.paths import PROJECT_ROOT, LOG_MAIN, LOG_ROOT
+from scantriage.adapters.parsing import parse_yaml, parse_xml
+from scantriage.adapters.model import OllamaTriageModelAdapter
+from scantriage.config import PROJECT_ROOT, LOG_MAIN, LOG_ROOT
 import logging
 
 
@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 
+
 if __name__ == "__main__":
     PROJECT_ROOT = Path(__file__).parent.parent
     FILE_XML = PROJECT_ROOT / "tests" / "test-data" / "H_192.168.220.57.xml"
@@ -22,8 +23,11 @@ if __name__ == "__main__":
     xml_findings = parse_xml(FILE_XML)
     yaml_findings = parse_yaml(FILE_YAML)
 
-    model_response_xml = query_model(xml_findings)
-    model_response_yaml = query_model(yaml_findings)
+
+
+
+    model_response_xml = OllamaTriageModelAdapter().triage(xml_findings)
+    model_response_yaml = OllamaTriageModelAdapter().triage(yaml_findings)
 
     print("=" * 50)
     print("XML FINDINGS")
