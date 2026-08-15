@@ -54,11 +54,11 @@ scan YAML into typed findings. The finding schema is complete and validated with
 passing smoke test (typed, discriminated union, Pydantic value constraints). The source
 parsers are being written against it now.
 
-**Phase 2, triage(in progress).** Feed one finding to a local model and get back a CVSS
+**Phase 2, triage.** Feed one finding to a local model and get back a CVSS
 severity band with rationale as schema valid structured output, using constrained
 decoding so the result always conforms to the schema. 
 
-**Phase 3, evaluation and baseline (planned).** Build a hand labeled ground truth set,
+**Phase 3, evaluation and baseline (in progress).** Build a hand labeled ground truth set,
 score the triage against it, and record a baseline accuracy number segmented by finding
 type. This baseline is what every later improvement is measured against.
 
